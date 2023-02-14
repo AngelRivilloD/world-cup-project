@@ -1,13 +1,35 @@
 <app-header></app-header>
-
-<div style="display: flex;">
-  <div *ngIf="teams">
-    <div *ngFor="let team of teams" (click)="selectTeam(team['team'])">{{team['team']['name']}}</div>
+<div class="main-wrapper">
+  <div class="sidebar">
+    <div class="sidebar-title">Choose your squad</div>
+    <app-team-selector (selected)="teamSelected = $event"></app-team-selector>
+    <div class="team-members" *ngIf="teamSelected">
+      <app-team-members [squad]="squad" [selectedCoach]="coachSelected" [team]="teamSelected"
+        (playerSelected)="selectPlayer($event, teamSelected, squad)"
+        (coachSelected)="coachSelected = $event"></app-team-members>
+    </div>
   </div>
-  <div *ngIf="squad">
-    <div class="player" *ngFor="let player of squad">
-      <img class="player-photo" [src]="player.photo" [alt]="player.name">
-      <span class="player-name">{{player.name}}</span>
+
+  <div class="content">
+    <div class="squad">
+      <div class="squad-header">
+        <div class="squad-title">My Squad</div>
+        <div class="squad-counter">Total Players {{squad.length}}/16</div>
+      </div>
+      <app-position-row *ngFor="let fieldPosition of fieldPositions" (remove)="removePlayer(squad, $event)"
+        [title]="fieldPosition.name" [minimum]="fieldPosition.minimum"
+        [completed]="getLenghtPlayersByPosition(squad, fieldPosition.name) >= fieldPosition.minimum"
+        [players]="getPlayersByPosition(squad, fieldPosition.name)"></app-position-row>
+    </div>
+    <div class="bench">
+      <div class="bench-body">
+        <app-coach [coach]="coachSelected"></app-coach>
+      </div>
+      <div class="bench-footer">
+        <button class="button-save" mat-raised-button color="accent"
+          [disabled]="checkMinimum(squad, coachSelected)">SAVE
+          TEAM</button>
+      </div>
     </div>
   </div>
 </div>

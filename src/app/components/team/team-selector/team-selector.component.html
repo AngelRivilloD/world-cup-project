@@ -1,0 +1,15 @@
+<form>
+    <mat-form-field class="teams-select" appearance="fill">
+        <mat-label>Select a team</mat-label>
+        <mat-select [(value)]="selectedTeam">
+            <mat-select-trigger *ngIf="selectedTeam">
+                <img class="team-logo" [src]="selectedTeam.logo" alt="">
+                {{selectedTeam.name}}
+            </mat-select-trigger>
+            <mat-option *ngFor="let team of sortTeamsByName(teams)" (click)="selectTeam(team.team)" [value]="team.team">
+                <img class="team-logo" [src]="team.team.logo" [alt]="team.team.logo">
+                {{team.team.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>

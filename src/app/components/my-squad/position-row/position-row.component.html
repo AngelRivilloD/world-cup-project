@@ -1,0 +1,15 @@
+<div class="position-row">
+    <div class="position" [ngClass]="{'position-completed': completed}">
+        <div class="position-title">{{title}}</div>
+        <div class="position-minimun">at least {{minimum}}
+            <mat-icon *ngIf="completed" class="check-icon" aria-label="Remove player" fontIcon="check"></mat-icon>
+        </div>
+    </div>
+    <div class="selected-players">
+        <app-player-selected [player]="player" *ngFor="let player of players"
+            (remove)="removePlayer($event)"></app-player-selected>
+
+        <app-player-selected-placeholder *ngFor="let players of getPlaceholderPlayers(players, minimum)"
+            [position]="dataService.getShortPosition(title)"></app-player-selected-placeholder>
+    </div>
+</div>

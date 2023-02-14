@@ -1,0 +1,44 @@
+@import '/src/app/styles/variables';
+
+.selected-player {
+    padding: 6px;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+
+    &-photo {
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+    }
+
+    &-name {
+        font-size: $font-size-sm;
+        margin-top: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    &-position {
+        width: 40px;
+        font-size: $font-size-sm;
+    }
+
+    &-flag {
+        width: 20px;
+        position: absolute;
+        margin-top: 35px;
+        margin-left: 5px;
+        border: 1px solid $mid-dark-color;
+    }
+
+    .delete-icon {
+        position: absolute;
+        height: 24px;
+        width: 30px;
+        font-size: $font-size-lg;
+    }
+}

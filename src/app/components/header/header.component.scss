@@ -1,0 +1,31 @@
+@import '/src/app/styles/variables';
+
+.header {
+    height: 75px;
+    -webkit-box-shadow: 1px 1px 10px 1px #999999;
+    box-shadow: 1px 1px 10px 1px #999999;
+    background-color: $lightest-color;
+    padding: 0px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-brand {
+        display: flex;
+        align-items: center;
+
+        &-title {
+            font-size: $font-size-lg;
+            margin-left: 10px;
+        }
+    }
+
+    &-brand-logo {
+        height: 30px;
+    }
+
+    &-league-logo {
+        height: 55px;
+        margin-right: 10px;
+    }
+}

@@ -1,0 +1,18 @@
+<div class="team-members">
+    <div class="list-title">Coach</div>
+    <div class="coach" *ngIf="coach" (click)="selectCoach(coach)"
+        [ngClass]="{'coach-selected': isCoachSelected(coach.id, selectedCoach)}">
+        <img class="coach-photo" [src]="coach.photo" [alt]="coach.name">
+        <span class="coach-name">{{coach.name}}</span>
+    </div>
+    <div class="warning warning-max" *ngIf="checkTeamMaximum(squad, team)">Maximum of 4 players per team
+    </div>
+    <div class="warning warning-complete" *ngIf="checkSquadMaximum(squad)">Your squad is complete</div>
+    <div class="list-title">Players</div>
+    <div class="players">
+        <app-player [player]="player" class="player" *ngFor="let player of players"
+            (click)="selectPlayer(player, squad)" [ngClass]="{'player-disabled': checkSquadMaximum(squad) || checkTeamMaximum(squad, team),
+        'player-selected': isPlayerSelected(player.id, squad)}">
+        </app-player>
+    </div>
+</div>

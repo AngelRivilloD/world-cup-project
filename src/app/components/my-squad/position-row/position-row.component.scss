@@ -1,0 +1,49 @@
+@import '/src/app/styles/variables';
+
+.position-row {
+    .position {
+        color: $lightest-color;
+        font-size: $font-size-md;
+        background-color: $mid-dark-color;
+        padding: 4px 12px;
+        opacity: 0.8;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        -webkit-transition: all 300ms ease-in-out;
+        -moz-transition: all 300ms ease-in-out;
+        -ms-transition: all 300ms ease-in-out;
+        -o-transition: all 300ms ease-in-out;
+        transition: all 300ms ease-in-out;
+
+        &-completed {
+            background-color: $green-color;
+            -webkit-transition: all 300ms ease-in-out;
+            -moz-transition: all 300ms ease-in-out;
+            -ms-transition: all 300ms ease-in-out;
+            -o-transition: all 300ms ease-in-out;
+            transition: all 300ms ease-in-out;
+            opacity: 1;
+        }
+
+        &-minimun {
+            font-size: $font-size-sm;
+
+            .check-icon {
+                font-size: $font-size-sm;
+                color: $light-green-color;
+                width: 13px;
+                height: 12px;
+            }
+        }
+    }
+
+    .selected-players {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        min-height: 83px;
+    }
+}

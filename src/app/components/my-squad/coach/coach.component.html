@@ -1,0 +1,11 @@
+<div class="coach">
+    <div class="coach-title">My coach</div>
+    <div class="coach-selected" *ngIf="coach">
+        <img class="coach-selected-photo" [src]="coach.photo" [alt]="coach.name">
+        <img class="coach-selected-flag" [src]="coach.team.logo" alt="">
+        <div class="coach-selected-name">{{coach.name}}</div>
+    </div>
+    <div class="coach-placeholder">
+        <app-player-selected-placeholder *ngIf="!coach" position="DT"></app-player-selected-placeholder>
+    </div>
+</div>

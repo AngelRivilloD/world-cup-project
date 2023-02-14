@@ -1,0 +1,76 @@
+@import '/src/app/styles/variables';
+
+.team-members {
+    .players {
+        height: 56vh;
+        overflow-y: auto;
+    }
+
+    .list-title {
+        font-size: $font-size-sm;
+        padding-left: 8px;
+        margin-bottom: 10px;
+    }
+
+    .coach {
+        padding: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid $light-color;
+        border-radius: 10px;
+        margin: 10px 5px;
+
+        &-photo {
+            height: 45px;
+            width: 45px;
+            border-radius: 40px;
+            -webkit-box-shadow: 1px 1px 4px 1px #dddddd;
+            box-shadow: 1px 1px 4px 1px #dddddd;
+        }
+
+        &-name {
+            font-size: $font-size-md;
+            margin-left: 10px;
+            width: 160px;
+        }
+
+        &-selected {
+            background-color: $lightest-green-color;
+            opacity: 1;
+            border: 1px solid $light-green-color;
+        }
+    }
+
+    .player {
+        display: flex;
+        align-items: center;
+        padding: 6px;
+        border-bottom: 1px solid $light-color;
+        cursor: pointer;
+
+        &-disabled {
+            opacity: 0.5;
+        }
+
+        &-selected {
+            background-color: $lightest-green-color;
+            opacity: 1;
+
+        }
+    }
+
+    .warning {
+        font-size: $font-size-sm;
+        padding: 0px 5px 10px 5px;
+
+        &-max {
+            color: $warning-color;
+        }
+
+        &-complete {
+            color: $green-color;
+        }
+    }
+
+}

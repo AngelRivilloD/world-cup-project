@@ -1,17 +1,68 @@
-.player {
-    display: flex;
-    align-items: center;
-    padding: 6px;
+@import '/src/app/styles/variables';
 
-    &-photo {
-        height: 35px;
-        width: 35px;
-        border-radius: 40px;
-        border: 1px solid #d9d9d9;
+.main-wrapper {
+    display: flex;
+
+    .sidebar {
+        background-color: $lightest-color;
+        width: 300px;
+        margin-left: 15px;
+        margin-top: 25px;
+        padding: 15px;
+        height: calc(100vh - 150px);
+
+        &-title {
+            margin-bottom: 15px;
+        }
     }
 
-    &-name {
-        font-size: 14px;
-        margin-left: 6px;
+    .content {
+        width: calc(100% - 300px);
+        background-color: $dark-color;
+        color: $lightest-color;
+        display: flex;
+        margin: 25px;
+        justify-content: center;
+
+        .squad {
+            padding-left: 55px;
+            padding-right: 55px;
+            padding-top: 15px;
+            padding-bottom: 30px;
+            width: 575px;
+            z-index: 2;
+            margin: 25px auto;
+
+            &-title {
+                font-size: $font-size-lg;
+                margin-bottom: 20px;
+            }
+
+            &-counter {
+                font-size: $font-size-md;
+                color: $light-color;
+                text-align: right;
+            }
+        }
+
+        .bench {
+            padding: 20px;
+            padding-top: 40px;
+            width: 200px;
+            z-index: 2;
+            background-color: $mid-dark-color;
+
+            &-body {
+                height: 75vh;
+            }
+
+            .button {
+                &-save {
+                    width: 100%;
+                    margin-top: 20px;
+                    font-size: $font-size-md;
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,38 @@
+@import '/src/app/styles/variables';
+
+.selected-player-placeholder {
+    padding: 6px;
+    width: 100px;
+    text-align: center;
+
+    &-photo {
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+    }
+
+    &-name {
+        font-size: $font-size-sm;
+        margin-top: 4px;
+    }
+
+    &-position {
+        width: 40px;
+        font-size: $font-size-sm;
+    }
+
+    &-flag {
+        width: 20px;
+        position: absolute;
+        margin-top: 35px;
+        margin-left: 5px;
+        border: 1px solid $mid-dark-color;
+    }
+
+    .delete-icon {
+        position: absolute;
+        height: 24px;
+        width: 30px;
+        font-size: $font-size-lg;
+    }
+}

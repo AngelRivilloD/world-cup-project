@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Coach } from 'src/app/core/types/coach';
 import { Player, Team } from 'src/app/core/types/team';
 import { DataService } from 'src/app/core/services/data.service';
@@ -12,20 +12,15 @@ import { StorageService } from 'src/app/core/services/storage.service';
 export class TeamMembersComponent implements OnInit {
 
   @Input() squad: Player[];
-  @Input() selectedCoach: Coach;
-
-  @Output() playerSelected = new EventEmitter<any>();
-  @Output() coachSelected = new EventEmitter<any>();
 
   public team: Team;
   public players: Player[];
   public coach: Coach;
 
-  constructor(private _dataService: DataService, private _storageService: StorageService) { }
+  constructor(public storageService: StorageService, private _dataService: DataService) { }
 
   ngOnInit() {
-    this._storageService.teamChange$.subscribe((team) => {
-      console.log(team);
+    this.storageService.teamChange$.subscribe((team) => {
       this.team = team;
       this.getData(team.id);
     });
@@ -63,14 +58,18 @@ export class TeamMembersComponent implements OnInit {
     return selectedCoach && selectedCoach.id === coachId
   }
 
-  selectPlayer(player: Player, squad: Player[]) {
-    if (!squad.some(squadPlayer => player.id === squadPlayer.id)) {
-      this.playerSelected.emit(player);
-    }
+  selectPlayer(player: Player, team: Team, squad: Player[]) {
+    const playerInSquad = squad.some(squadPlayer => squadPlayer.id === player.id);
+    const nationalPlayer = { ...player, team: team };
+    const playerPerCountry = squad.filter(player => player.team && player.team.id == team.id);
+    const squadMaxCondition = (squad.length < 16);
+    const nationalTeamMaxCondition = (playerPerCountry.length < 4);
+
+    this.storageService.squad = !playerInSquad && squadMaxCondition && nationalTeamMaxCondition ? [...squad, nationalPlayer] : squad;
   }
 
   selectCoach(coach: Coach) {
-    this.coachSelected.emit(coach);
+    this.storageService.coach = coach;
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/app/core/services/storage.service';
 import { Coach } from '../../../core/types/coach';
 
 @Component({
@@ -6,8 +7,16 @@ import { Coach } from '../../../core/types/coach';
   templateUrl: './coach.component.html',
   styleUrls: ['./coach.component.scss']
 })
-export class CoachComponent {
+export class CoachComponent implements OnInit {
 
-  @Input() coach: Coach;
+  public coach: Coach;
+
+  constructor(public storageService: StorageService) { }
+
+  ngOnInit() {
+    this.storageService.coachChange$.subscribe((coach) => {
+      this.coach = coach;
+    })
+  }
 
 }

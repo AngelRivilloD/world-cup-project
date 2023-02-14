@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Player } from 'src/app/core/types/team';
 import { DataService } from 'src/app/core/services/data.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-position-row',
@@ -12,20 +13,19 @@ export class PositionRowComponent {
   @Input() players: Player[];
   @Input() title: string;
   @Input() minimum: number;
-  @Input() completed: boolean;
 
-  @Output() remove = new EventEmitter<any>();
+  public completed: boolean;
 
-  constructor(public dataService: DataService) { }
-
-  removePlayer(player: Player) {
-    this.remove.emit(player);
-  }
+  constructor(public storageService: StorageService, public dataService: DataService) { }
 
   getPlaceholderPlayers(playersSelected: Player[], minimumPlayers: number) {
     const amountPlayersSelected = playersSelected.length;
     const placeholderPlayers = (minimumPlayers - amountPlayersSelected >= 0) ? minimumPlayers - amountPlayersSelected : 0;
     return Array(placeholderPlayers);
+  }
+
+  isCompleted(squad: Player[], title: string, minimum: number) {
+    return (squad && this.dataService.getPlayersAmountByPosition(squad, title) >= minimum)
   }
 
 }

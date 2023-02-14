@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Player } from '../types/team';
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +66,7 @@ export class DataService {
 
     return shortPositions[pos];
   }
+
+  getPlayersAmountByPosition = (squad: Player[], pos: string) => squad.filter(player => player.position == pos).length;
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Position } from './core/enums/position';
 import { fieldPositions } from './core/fielPositions';
+import { DataService } from './core/services/data.service';
 import { StorageService } from './core/services/storage.service';
 import { Coach } from './core/types/coach';
 import { Player, Team } from './core/types/team';
@@ -18,37 +19,25 @@ export class AppComponent implements OnInit {
   public squad: Player[] = [];
   public fieldPositions = fieldPositions;
 
-  constructor(private _storageService: StorageService) { }
+  constructor(public storageService: StorageService, private _dataService: DataService) { }
 
   ngOnInit() {
-    this._storageService.teamChange$.subscribe((team) => {
+    this.storageService.teamChange$.subscribe((team) => {
       this.teamSelected = team;
+    });
+    this.storageService.squadChange$.subscribe((squad) => {
+      this.squad = squad;
     });
   }
 
-  selectPlayer(player: Player, team: Team, squad: Player[]) {
-    const nationalPlayer = { ...player, team: team };
-    const playerPerCountry = this.squad.filter(player => player.team && player.team.id == team.id);
-    const squadMaxCondition = (squad.length < 16);
-    const nationalTeamMaxCondition = (playerPerCountry.length < 4);
-
-    this.squad = squadMaxCondition && nationalTeamMaxCondition ? [...squad, nationalPlayer] : squad;
-  }
-
   checkMinimum(squad: Player[], coach: Coach) {
-    const goalkeepersMin = this.getLenghtPlayersByPosition(squad, Position.GOALKEEPER) > 1;
-    const defendersMin = this.getLenghtPlayersByPosition(squad, Position.DEFENDER) > 3;
-    const midfieldersMin = this.getLenghtPlayersByPosition(squad, Position.MIDFIELDER) > 3;
-    const attackersMin = this.getLenghtPlayersByPosition(squad, Position.ATTACKER) > 1;
+    const goalkeepersMin = this._dataService.getPlayersAmountByPosition(squad, Position.GOALKEEPER) > 1;
+    const defendersMin = this._dataService.getPlayersAmountByPosition(squad, Position.DEFENDER) > 3;
+    const midfieldersMin = this._dataService.getPlayersAmountByPosition(squad, Position.MIDFIELDER) > 3;
+    const attackersMin = this._dataService.getPlayersAmountByPosition(squad, Position.ATTACKER) > 1;
 
     return !goalkeepersMin || !defendersMin || !midfieldersMin || !attackersMin || !coach;
   }
 
-  getLenghtPlayersByPosition = (squad: Player[], pos: string) => squad.filter(player => player.position == pos).length;
-
   getPlayersByPosition = (players: Player[], pos: string) => players.filter(player => player.position == pos);
-
-  removePlayer(squad: Player[], player: Player) {
-    this.squad = squad.filter(squadPlayer => squadPlayer !== player);
-  }
 }

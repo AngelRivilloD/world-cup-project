@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { StorageService } from 'src/app/core/services/storage.service';
 import { Player } from 'src/app/core/types/team';
 
 @Component({
@@ -9,10 +10,11 @@ import { Player } from 'src/app/core/types/team';
 export class PlayerSelectedComponent {
 
   @Input() player: Player;
-  @Output() remove = new EventEmitter<any>();
 
-  removePlayer(player: Player) {
-    this.remove.emit(player);
+  constructor(public storageService: StorageService) { }
+
+  removePlayer(squad: Player[], player: Player) {
+    this.storageService.squad = squad.filter(squadPlayer => squadPlayer !== player);
   }
 
 }

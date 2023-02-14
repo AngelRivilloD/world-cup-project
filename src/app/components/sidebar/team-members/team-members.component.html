@@ -1,7 +1,7 @@
 <div class="team-members">
     <div class="list-title" *ngIf="coach">Coach</div>
     <div class="coach" *ngIf="coach" (click)="selectCoach(coach)"
-        [ngClass]="{'coach-selected': isCoachSelected(coach.id, selectedCoach)}">
+        [ngClass]="{'coach-selected': isCoachSelected(coach.id, storageService.coach)}">
         <img class="coach-photo" [src]="coach.photo" [alt]="coach.name">
         <span class="coach-name">{{coach.name}}</span>
     </div>
@@ -12,7 +12,7 @@
     <div class="players"
         [ngClass]="{'one-warning-height': checkTeamMaximum(squad, team) || checkSquadMaximum(squad), 'two-warning-height': checkSquadMaximum(squad) && checkTeamMaximum(squad, team)}">
         <app-player [player]="player" class="player" *ngFor="let player of players"
-            (click)="selectPlayer(player, squad)" [ngClass]="{'player-disabled': checkSquadMaximum(squad) || checkTeamMaximum(squad, team),
+            (click)="selectPlayer(player, team, squad)" [ngClass]="{'player-disabled': checkSquadMaximum(squad) || checkTeamMaximum(squad, team),
         'player-selected': isPlayerSelected(player.id, squad)}">
         </app-player>
     </div>

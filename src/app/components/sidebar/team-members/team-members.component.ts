@@ -1,36 +1,39 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Coach } from 'src/app/core/types/coach';
 import { Player, Team } from 'src/app/core/types/team';
 import { DataService } from 'src/app/core/services/data.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-team-members',
   templateUrl: './team-members.component.html',
   styleUrls: ['./team-members.component.scss']
 })
-export class TeamMembersComponent implements OnInit, OnChanges {
+export class TeamMembersComponent implements OnInit {
 
   @Input() squad: Player[];
   @Input() selectedCoach: Coach;
-  @Input() team: Team;
 
   @Output() playerSelected = new EventEmitter<any>();
   @Output() coachSelected = new EventEmitter<any>();
 
+  public team: Team;
   public players: Player[];
   public coach: Coach;
 
-  constructor(private _dataService: DataService) { }
+  constructor(private _dataService: DataService, private _storageService: StorageService) { }
 
   ngOnInit() {
+    this._storageService.teamChange$.subscribe((team) => {
+      console.log(team);
+      this.team = team;
+      this.getData(team.id);
+    });
   }
 
-  async ngOnChanges(changes: SimpleChanges) {
-    if (changes.team && changes.team.currentValue) {
-      const teamId = changes.team.currentValue.id;
-      this.players = await this.getPlayers(teamId);
-      this.coach = await this.getCoach(teamId);
-    }
+  async getData(teamId: number) {
+    this.players = await this.getPlayers(teamId);
+    this.coach = await this.getCoach(teamId);
   }
 
   getPlayers = async (teamId: number) => {

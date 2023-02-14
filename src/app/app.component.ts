@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Position } from './core/enums/position';
 import { fieldPositions } from './core/fielPositions';
+import { StorageService } from './core/services/storage.service';
 import { Coach } from './core/types/coach';
 import { Player, Team } from './core/types/team';
 
@@ -9,7 +10,7 @@ import { Player, Team } from './core/types/team';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public POSITION = Position;
   public teamSelected: Team;
@@ -17,7 +18,13 @@ export class AppComponent {
   public squad: Player[] = [];
   public fieldPositions = fieldPositions;
 
-  constructor() { }
+  constructor(private _storageService: StorageService) { }
+
+  ngOnInit() {
+    this._storageService.teamChange$.subscribe((team) => {
+      this.teamSelected = team;
+    });
+  }
 
   selectPlayer(player: Player, team: Team, squad: Player[]) {
     const nationalPlayer = { ...player, team: team };

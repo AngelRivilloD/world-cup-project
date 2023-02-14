@@ -2,9 +2,9 @@
 <div class="main-wrapper">
   <div class="sidebar">
     <div class="sidebar-title">Choose your squad</div>
-    <app-team-selector (selected)="teamSelected = $event"></app-team-selector>
-    <div class="team-members" *ngIf="teamSelected">
-      <app-team-members [squad]="squad" [selectedCoach]="coachSelected" [team]="teamSelected"
+    <app-team-selector></app-team-selector>
+    <div class="team-members">
+      <app-team-members [squad]="squad" [selectedCoach]="coachSelected"
         (playerSelected)="selectPlayer($event, teamSelected, squad)"
         (coachSelected)="coachSelected = $event"></app-team-members>
     </div>

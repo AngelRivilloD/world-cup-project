@@ -2,8 +2,16 @@
 
 .team-members {
     .players {
-        height: 56vh;
+        height: calc(100vh - 368px);
         overflow-y: auto;
+    }
+
+    .one-warning-height {
+        height: calc(100vh - 395px);
+    }
+
+    .two-warning-height {
+        height: calc(100vh - 422px);
     }
 
     .list-title {

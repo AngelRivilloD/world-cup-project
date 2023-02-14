@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Team, TeamsData } from 'src/app/core/types/team';
 import { DataService } from 'src/app/core/services/data.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-team-selector',
@@ -9,12 +10,10 @@ import { DataService } from 'src/app/core/services/data.service';
 })
 export class TeamSelectorComponent implements OnInit {
 
-  @Output() selected = new EventEmitter<any>();
-
   public teams: TeamsData[] = [];
   public selectedTeam: Team;
 
-  constructor(private _dataService: DataService) { }
+  constructor(private _dataService: DataService, private _storageService: StorageService) { }
 
   async ngOnInit() {
     this.teams = await this.getTeams();
@@ -28,6 +27,6 @@ export class TeamSelectorComponent implements OnInit {
   };
 
   selectTeam(team: Team) {
-    this.selected.emit(team);
+    this._storageService.team = team;
   }
 }

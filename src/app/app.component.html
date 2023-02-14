@@ -14,7 +14,7 @@
         <div class="squad-title">My Squad</div>
         <div class="squad-counter">Total Players {{squad.length}}/16</div>
       </div>
-      <app-position-row *ngFor="let fieldPosition of fieldPositions" [title]="fieldPosition.name"
+      <app-position-row *ngFor="let fieldPosition of fieldPositions" [squad]="squad" [title]="fieldPosition.name"
         [minimum]="fieldPosition.minimum"
         [players]="getPlayersByPosition(squad, fieldPosition.name)"></app-position-row>
     </div>
@@ -23,8 +23,7 @@
         <app-coach></app-coach>
       </div>
       <div class="bench-footer">
-        <button class="button-save" mat-raised-button color="accent"
-          [disabled]="checkMinimum(squad, storageService.coach)">SAVE
+        <button class="button-save" mat-raised-button color="accent" [disabled]="checkMinimum(squad, coach)">SAVE
           TEAM</button>
       </div>
     </div>

@@ -13,6 +13,7 @@ export class PositionRowComponent {
   @Input() players: Player[];
   @Input() title: string;
   @Input() minimum: number;
+  @Input() squad: Player[];
 
   public completed: boolean;
 

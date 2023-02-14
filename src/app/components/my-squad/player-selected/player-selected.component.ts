@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { StorageService } from 'src/app/core/services/storage.service';
+import { DataService } from 'src/app/core/services/data.service';
 import { Player } from 'src/app/core/types/team';
 
 @Component({
@@ -11,10 +11,10 @@ export class PlayerSelectedComponent {
 
   @Input() player: Player;
 
-  constructor(public storageService: StorageService) { }
+  constructor(public _dataService: DataService) { }
 
-  removePlayer(squad: Player[], player: Player) {
-    this.storageService.squad = squad.filter(squadPlayer => squadPlayer !== player);
+  removePlayer(player: Player) {
+    this._dataService.removePlayer(player);
   }
 
 }

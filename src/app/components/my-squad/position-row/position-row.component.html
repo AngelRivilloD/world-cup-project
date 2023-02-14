@@ -1,5 +1,5 @@
 <div class="position-row">
-    <div class="position" [ngClass]="{'position-completed': isCompleted(storageService.squad, title, minimum)}">
+    <div class="position" [ngClass]="{'position-completed': isCompleted(squad, title, minimum)}">
         <div class="position-title">{{title}}</div>
         <div class="position-minimun">at least {{minimum}}
             <mat-icon *ngIf="completed" class="check-icon" aria-label="Remove player" fontIcon="check"></mat-icon>

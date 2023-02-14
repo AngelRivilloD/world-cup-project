@@ -16,6 +16,7 @@ export class TeamMembersComponent implements OnInit {
   public team: Team;
   public players: Player[];
   public coach: Coach;
+  public coachSelected: Coach;
 
   constructor(public storageService: StorageService, private _dataService: DataService) { }
 
@@ -24,6 +25,10 @@ export class TeamMembersComponent implements OnInit {
       this.team = team;
       this.getData(team.id);
     });
+    this.storageService.coachChange$.subscribe((coach) => {
+      this.coachSelected = coach;
+    });
+
   }
 
   async getData(teamId: number) {
@@ -54,18 +59,18 @@ export class TeamMembersComponent implements OnInit {
     return squad.some(squadPlayer => squadPlayer.id == playerId);
   }
 
-  isCoachSelected(coachId: number, selectedCoach: Coach) {
-    return selectedCoach && selectedCoach.id === coachId
+  isCoachSelected(coach: Coach, selectedCoach: Coach) {
+    return selectedCoach && selectedCoach.id === coach.id
   }
 
   selectPlayer(player: Player, team: Team, squad: Player[]) {
-    const playerInSquad = squad.some(squadPlayer => squadPlayer.id === player.id);
+    const isPlayerInSquad = squad.some(squadPlayer => squadPlayer.id === player.id);
     const nationalPlayer = { ...player, team: team };
-    const playerPerCountry = squad.filter(player => player.team && player.team.id == team.id);
-    const squadMaxCondition = (squad.length < 16);
-    const nationalTeamMaxCondition = (playerPerCountry.length < 4);
+    const playersOfSameNationality = squad.filter(p => p.team && p.team.id === team.id);
+    const isSquadFull = squad.length >= 16;
+    const isNationalTeamFull = playersOfSameNationality.length >= 4;
 
-    this.storageService.squad = !playerInSquad && squadMaxCondition && nationalTeamMaxCondition ? [...squad, nationalPlayer] : squad;
+    this.storageService.squad = isPlayerInSquad || isSquadFull || isNationalTeamFull ? squad : [...squad, nationalPlayer];
   }
 
   selectCoach(coach: Coach) {

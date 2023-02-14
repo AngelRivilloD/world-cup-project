@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Player } from '../types/team';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _storageService: StorageService) { }
 
   getApiUrl() {
     return 'https://api-football-v1.p.rapidapi.com/v3';
@@ -68,5 +69,10 @@ export class DataService {
   }
 
   getPlayersAmountByPosition = (squad: Player[], pos: string) => squad.filter(player => player.position == pos).length;
+
+
+  removePlayer(player: Player) {
+    this._storageService.squad = this._storageService.squad.filter(squadPlayer => squadPlayer !== player);
+  }
 
 }

@@ -1,7 +1,6 @@
 <div class="selected-player">
     <img class="selected-player-photo" [src]="player.photo" [alt]="player.name">
-    <mat-icon class="delete-icon" (click)="removePlayer(storageService.squad, player)" aria-label="Remove player"
-        fontIcon="close"></mat-icon>
+    <mat-icon class="delete-icon" (click)="removePlayer(player)" aria-label="Remove player" fontIcon="close"></mat-icon>
     <img class="selected-player-flag" [src]="player.team?.logo" [alt]="player.team?.logo">
     <div class="selected-player-name">{{player.name}}</div>
 </div>

@@ -4,7 +4,7 @@ import { fieldPositions } from './core/fielPositions';
 import { DataService } from './core/services/data.service';
 import { StorageService } from './core/services/storage.service';
 import { Coach } from './core/types/coach';
-import { Player, Team } from './core/types/team';
+import { Player } from './core/types/team';
 
 @Component({
   selector: 'app-root',
@@ -14,29 +14,28 @@ import { Player, Team } from './core/types/team';
 export class AppComponent implements OnInit {
 
   public POSITION = Position;
-  public teamSelected: Team;
-  public coachSelected: Coach;
+  public coach: Coach;
   public squad: Player[] = [];
   public fieldPositions = fieldPositions;
 
   constructor(public storageService: StorageService, private _dataService: DataService) { }
 
   ngOnInit() {
-    this.storageService.teamChange$.subscribe((team) => {
-      this.teamSelected = team;
-    });
-    this.storageService.squadChange$.subscribe((squad) => {
+    this.storageService.squadChange$.subscribe(squad => {
       this.squad = squad;
+    });
+    this.storageService.coachChange$.subscribe(coach => {
+      this.coach = coach;
     });
   }
 
   checkMinimum(squad: Player[], coach: Coach) {
-    const goalkeepersMin = this._dataService.getPlayersAmountByPosition(squad, Position.GOALKEEPER) > 1;
-    const defendersMin = this._dataService.getPlayersAmountByPosition(squad, Position.DEFENDER) > 3;
-    const midfieldersMin = this._dataService.getPlayersAmountByPosition(squad, Position.MIDFIELDER) > 3;
-    const attackersMin = this._dataService.getPlayersAmountByPosition(squad, Position.ATTACKER) > 1;
+    const isGoalkeeperAmountCorrect = this._dataService.getPlayersAmountByPosition(squad, Position.GOALKEEPER) > 1;
+    const isDefenderAmountCorrect = this._dataService.getPlayersAmountByPosition(squad, Position.DEFENDER) > 3;
+    const isMidfielderAmountCorrect = this._dataService.getPlayersAmountByPosition(squad, Position.MIDFIELDER) > 3;
+    const isAttackerAmountCorrect = this._dataService.getPlayersAmountByPosition(squad, Position.ATTACKER) > 1;
 
-    return !goalkeepersMin || !defendersMin || !midfieldersMin || !attackersMin || !coach;
+    return !(isGoalkeeperAmountCorrect && isDefenderAmountCorrect && isMidfielderAmountCorrect && isAttackerAmountCorrect && coach);
   }
 
   getPlayersByPosition = (players: Player[], pos: string) => players.filter(player => player.position == pos);

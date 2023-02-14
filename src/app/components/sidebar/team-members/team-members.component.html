@@ -1,7 +1,7 @@
 <div class="team-members">
     <div class="list-title" *ngIf="coach">Coach</div>
     <div class="coach" *ngIf="coach" (click)="selectCoach(coach)"
-        [ngClass]="{'coach-selected': isCoachSelected(coach.id, storageService.coach)}">
+        [ngClass]="{'coach-selected': isCoachSelected(coach, coachSelected)}">
         <img class="coach-photo" [src]="coach.photo" [alt]="coach.name">
         <span class="coach-name">{{coach.name}}</span>
     </div>

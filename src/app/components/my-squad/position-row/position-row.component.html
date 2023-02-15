@@ -8,7 +8,7 @@
     <div class="selected-players">
         <app-player-selected [player]="player" *ngFor="let player of players"></app-player-selected>
 
-        <app-player-selected-placeholder *ngFor="let players of getPlaceholderPlayers(players, minimum)"
-            [position]="dataService.getShortPosition(title)"></app-player-selected-placeholder>
+        <app-person-placeholder *ngFor="let players of getPlaceholderPlayers(players, minimum)"
+            [name]="dataService.getShortPosition(title)"></app-person-placeholder>
     </div>
 </div>

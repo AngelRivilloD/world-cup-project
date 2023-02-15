@@ -1,0 +1,19 @@
+@import '/src/app/styles/variables';
+
+.squad {
+    &-header {
+        display: flex;
+        justify-content: space-between;
+
+        &-title {
+            font-size: $font-size-lg;
+            margin-bottom: 20px;
+        }
+
+        &-counter {
+            font-size: $font-size-md;
+            color: $light-color;
+            text-align: right;
+        }
+    }
+}

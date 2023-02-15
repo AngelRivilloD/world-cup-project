@@ -1,34 +1,40 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Coach } from 'src/app/core/types/coach';
 import { Player, Team } from 'src/app/core/types/team';
 import { DataService } from 'src/app/core/services/data.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-team-members',
   templateUrl: './team-members.component.html',
   styleUrls: ['./team-members.component.scss']
 })
-export class TeamMembersComponent implements OnInit {
-
-  @Input() squad: Player[];
+export class TeamMembersComponent implements OnInit, OnDestroy {
 
   public team: Team;
   public players: Player[];
+  public squad: Player[] = [];
   public coach: Coach;
   public coachSelected: Coach;
+
+  private _teamSubscription: Subscription;
+  private _coachSubscription: Subscription;
+  private _squadSubscription: Subscription;
 
   constructor(public storageService: StorageService, private _dataService: DataService) { }
 
   ngOnInit() {
-    this.storageService.teamChange$.subscribe((team) => {
+    this._teamSubscription = this.storageService.teamChange$.subscribe((team) => {
       this.team = team;
       this.getData(team.id);
     });
-    this.storageService.coachChange$.subscribe((coach) => {
+    this._coachSubscription = this.storageService.coachChange$.subscribe((coach) => {
       this.coachSelected = coach;
     });
-
+    this._squadSubscription = this.storageService.squadChange$.subscribe(squad => {
+      this.squad = squad;
+    });
   }
 
   async getData(teamId: number) {
@@ -75,6 +81,18 @@ export class TeamMembersComponent implements OnInit {
 
   selectCoach(coach: Coach) {
     this.storageService.coach = coach;
+  }
+
+  ngOnDestroy() {
+    if (this._teamSubscription) {
+      this._teamSubscription.unsubscribe();
+    }
+    if (this._coachSubscription) {
+      this._coachSubscription.unsubscribe();
+    }
+    if (this._squadSubscription) {
+      this._squadSubscription.unsubscribe();
+    }
   }
 
 }

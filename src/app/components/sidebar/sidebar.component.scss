@@ -1,0 +1,14 @@
+@import '/src/app/styles/variables';
+
+.sidebar {
+    background-color: $lightest-color;
+    width: 300px;
+    margin-left: 15px;
+    margin-top: 25px;
+    padding: 15px;
+    height: calc(100vh - 150px);
+
+    &-title {
+        margin-bottom: 15px;
+    }
+}

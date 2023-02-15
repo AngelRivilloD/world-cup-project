@@ -1,0 +1,9 @@
+<div class="squad">
+    <div class="squad-header">
+        <div class="squad-header-title">My Squad</div>
+        <div class="squad-header-counter">Total Players {{squad.length}}/16</div>
+    </div>
+    <app-position-row *ngFor="let fieldPosition of fieldPositions" [squad]="squad" [title]="fieldPosition.name"
+        [minimum]="fieldPosition.minimum"
+        [players]="getPlayersByPosition(squad, fieldPosition.name)"></app-position-row>
+</div>

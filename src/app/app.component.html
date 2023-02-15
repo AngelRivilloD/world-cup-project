@@ -1,29 +1,15 @@
 <app-header></app-header>
 <div class="main-wrapper">
-  <div class="sidebar">
-    <div class="sidebar-title">Choose your squad</div>
-    <app-team-selector></app-team-selector>
-    <div class="team-members">
-      <app-team-members [squad]="squad"></app-team-members>
-    </div>
-  </div>
+  <app-sidebar></app-sidebar>
 
   <div class="content">
-    <div class="squad">
-      <div class="squad-header">
-        <div class="squad-title">My Squad</div>
-        <div class="squad-counter">Total Players {{squad.length}}/16</div>
-      </div>
-      <app-position-row *ngFor="let fieldPosition of fieldPositions" [squad]="squad" [title]="fieldPosition.name"
-        [minimum]="fieldPosition.minimum"
-        [players]="getPlayersByPosition(squad, fieldPosition.name)"></app-position-row>
-    </div>
+    <app-my-squad [squad]="squad"></app-my-squad>
     <div class="bench">
       <div class="bench-body">
-        <app-coach></app-coach>
+        <app-coach [coach]="coach"></app-coach>
       </div>
       <div class="bench-footer">
-        <button class="button-save" mat-raised-button color="accent" [disabled]="checkMinimum(squad, coach)">SAVE
+        <button class="button-save" mat-raised-button color="accent" [disabled]="checkDisableButton(squad, coach)">SAVE
           TEAM</button>
       </div>
     </div>

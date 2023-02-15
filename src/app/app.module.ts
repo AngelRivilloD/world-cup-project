@@ -12,11 +12,14 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { TeamMembersComponent } from './components/sidebar/team-members/team-members.component';
 import { TeamSelectorComponent } from './components/sidebar/team-selector/team-selector.component';
-import { PlayerComponent } from './components/sidebar/player/player.component';
-import { CoachComponent } from './components/my-squad/coach/coach.component';
 import { PlayerSelectedComponent } from './components/my-squad/player-selected/player-selected.component';
 import { PositionRowComponent } from './components/my-squad/position-row/position-row.component';
-import { PlayerSelectedPlaceholderComponent } from './components/my-squad/player-selected-placeholder/player-selected-placeholder.component';
+import { PlayerComponent } from './components/sidebar/player/player.component';
+import { PersonPlaceholderComponent } from './components/shared/person-placeholder/person-placeholder.component';
+import { CoachComponent } from './components/my-squad/coach/coach.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MySquadComponent } from './components/my-squad/my-squad.component';
+
 
 @NgModule({
   declarations: [
@@ -27,8 +30,10 @@ import { PlayerSelectedPlaceholderComponent } from './components/my-squad/player
     PlayerSelectedComponent,
     PositionRowComponent,
     PlayerComponent,
-    PlayerSelectedPlaceholderComponent,
-    CoachComponent
+    PersonPlaceholderComponent,
+    CoachComponent,
+    SidebarComponent,
+    MySquadComponent
   ],
   imports: [
     BrowserModule,

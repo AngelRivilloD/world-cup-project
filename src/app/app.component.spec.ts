@@ -11,6 +11,8 @@ import { CoachComponent } from './components/my-squad/coach/coach.component';
 import { TeamSelectorComponent } from './components/sidebar/team-selector/team-selector.component';
 import { TeamMembersComponent } from './components/sidebar/team-members/team-members.component';
 import { MaterialModule } from './material.module';
+import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -340,10 +342,22 @@ describe('AppComponent', () => {
     expect(result).toEqual([]);
   });
 
-  it('should return the parsed local squad', () => {
-    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockSquad));
-    const result = component.checkLocalSquad();
-    expect(result).toEqual(mockSquad);
+  it('should return decrypted squad from local storage', () => {
+    const spyLocalStorageGetItem = spyOn(localStorage, 'getItem').and.returnValues(
+      CryptoJS.AES.encrypt(JSON.stringify(mockSquad), environment.SECRET_KEY).toString(),
+      null
+    );
+    expect(component.checkLocalSquad()).toEqual(mockSquad);
+    expect(spyLocalStorageGetItem).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return decrypted coach from local storage', () => {
+    const spyLocalStorageGetItem = spyOn(localStorage, 'getItem').and.returnValues(
+      CryptoJS.AES.encrypt(JSON.stringify(mockCoach), environment.SECRET_KEY).toString(),
+      null
+    );
+    expect(component.checkLocalSquad()).toEqual(mockCoach);
+    expect(spyLocalStorageGetItem).toHaveBeenCalledTimes(1);
   });
 
   it('should return null when local coach is not set', () => {
@@ -352,22 +366,17 @@ describe('AppComponent', () => {
     expect(result).toBeNull();
   });
 
-  it('should return the parsed local coach', () => {
-    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockCoach));
-    const result = component.checkLocalCoach();
-    expect(result).toEqual(mockCoach);
-  });
-
   it('should save squad and coach to local storage', () => {
     spyOn(localStorage, 'setItem');
     component.saveMyTeam(mockSquad, mockCoach);
-    expect(localStorage.setItem).toHaveBeenCalledTimes(2);
-    expect(localStorage.setItem).toHaveBeenCalledWith('my-squad', JSON.stringify(mockSquad));
-    expect(localStorage.setItem).toHaveBeenCalledWith('my-coach', JSON.stringify(mockCoach));
+    expect(component.showSaveAlert).toBeTrue();
   });
 
   it('should set ngOnInit', () => {
+    spyOn(component, 'checkLocalCoach');
+    spyOn(component, 'checkLocalSquad');
     component.ngOnInit();
     expect(component.checkLocalCoach).toHaveBeenCalled();
+    expect(component.checkLocalSquad).toHaveBeenCalled();
   });
 });

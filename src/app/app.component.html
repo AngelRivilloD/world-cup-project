@@ -9,6 +9,7 @@
         <app-coach [coach]="coach"></app-coach>
       </div>
       <div class="bench-footer">
+        <div class="save-alert" *ngIf="showSaveAlert">Team saved!</div>
         <button class="button-save" mat-raised-button color="accent" (click)="saveMyTeam(squad, coach)"
           [disabled]="checkDisableButton(squad, coach)">SAVE
           TEAM</button>

@@ -39,6 +39,15 @@
                     font-size: $font-size-md;
                 }
             }
+
+            .save-alert {
+                font-size: $font-size-md;
+                position: absolute;
+                bottom: 90px;
+                width: 200px;
+                text-align: center;
+                color: $lightest-green-color;
+            }
         }
     }
 }

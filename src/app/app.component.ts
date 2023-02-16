@@ -5,6 +5,8 @@ import { StorageService } from './core/services/storage.service';
 import { Coach } from './core/types/coach';
 import { Player } from './core/types/team';
 import { Subscription } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public coach: Coach;
   public squad: Player[] = [];
+  public showSaveAlert: boolean = false;
 
   private _squadSubscription: Subscription;
   private _coachSubscription: Subscription;
@@ -22,7 +25,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(public storageService: StorageService, private _dataService: DataService) { }
 
   ngOnInit() {
-
     this._squadSubscription = this.storageService.squadChange$.subscribe(squad => {
       this.squad = squad;
     });
@@ -30,8 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.coach = coach;
     });
 
-    // this.squad = this.checkLocalSquad();
-    // console.log(this.squad);
     this.storageService.squad = this.checkLocalSquad();
     this.storageService.coach = this.checkLocalCoach();
   }
@@ -46,18 +46,29 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   saveMyTeam(squad: Player[], coach: Coach) {
-    localStorage.setItem('my-squad', JSON.stringify(squad));
-    localStorage.setItem('my-coach', JSON.stringify(coach));
+    const encryptedSquad = CryptoJS.AES.encrypt(JSON.stringify(squad), environment.SECRET_KEY).toString();
+    const encryptedCoach = CryptoJS.AES.encrypt(JSON.stringify(coach), environment.SECRET_KEY).toString();
+    localStorage.setItem('my-squad', encryptedSquad);
+    localStorage.setItem('my-coach', encryptedCoach);
+    this.showSaveAlert = true;
+    setTimeout(() => {
+      this.showSaveAlert = false;
+    }, 2000);
+  }
+
+  decryptData(data: string) {
+    const bytes = CryptoJS.AES.decrypt(data, environment.SECRET_KEY);
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   }
 
   checkLocalSquad() {
     const localSquad = localStorage.getItem('my-squad');
-    return (localSquad) ? JSON.parse(localSquad) : [];
+    return (localSquad) ? this.decryptData(localSquad) : [];
   }
 
   checkLocalCoach() {
     const localCoach = localStorage.getItem('my-coach');
-    return (localCoach) ? JSON.parse(localCoach) : null;
+    return (localCoach) ? this.decryptData(localCoach) : null;
   }
 
   ngOnDestroy() {

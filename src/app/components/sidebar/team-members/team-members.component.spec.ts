@@ -401,7 +401,6 @@ describe('TeamMembersComponent', () => {
                 "team": mockTeam
             };
             component.selectPlayer(mockPlayer, mockTeam, [mockPlayer2]);
-            console.log(storageService.squad, mockResponse);
             expect(storageService.squad).toEqual(mockResponse);
         });
     });

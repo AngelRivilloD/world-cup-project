@@ -11,7 +11,6 @@ export class CoachComponent {
   @Input() coach: Coach;
 
   constructor() {
-    console.log(this.coach);
   }
 
 }

@@ -36,3 +36,20 @@
         font-size: $font-size-lg;
     }
 }
+
+@media screen and (max-width: 700px) {
+    .person-placeholder {
+        width: 70px;
+
+        &-photo {
+            height: 34px;
+            width: 34px;
+            border-radius: 50px;
+        }
+
+        &-name {
+            font-size: $font-size-xsm;
+        }
+
+    }
+}

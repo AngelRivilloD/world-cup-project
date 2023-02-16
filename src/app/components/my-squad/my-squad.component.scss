@@ -17,3 +17,23 @@
         }
     }
 }
+
+@media screen and (max-width: 700px) {
+    .squad {
+        padding: 15px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+
+        &-header {
+
+            &-title {
+                font-size: $font-size-md;
+                margin-bottom: 0px;
+            }
+
+            &-counter {
+                font-size: $font-size-sm;
+            }
+        }
+    }
+}

@@ -29,3 +29,23 @@
         margin-right: 10px;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .header {
+        height: 55px;
+        padding: 0px 20px;
+
+        &-brand-title {
+            font-size: $font-size-md;
+        }
+
+        &-brand-logo {
+            height: 20px;
+        }
+
+        &-league-logo {
+            height: 35px;
+            margin-right: 10px;
+        }
+    }
+}

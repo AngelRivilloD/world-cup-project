@@ -42,3 +42,30 @@
         font-size: $font-size-lg;
     }
 }
+
+@media screen and (max-width: 700px) {
+    .selected-player {
+        width: 70px;
+
+        &-photo {
+            height: 34px;
+            width: 34px;
+            border-radius: 50px;
+        }
+
+        &-flag {
+            width: 13px;
+            margin-top: 25px;
+
+        }
+
+        &-name {
+            font-size: $font-size-xsm;
+        }
+
+        .delete-icon {
+            width: 26px;
+            font-size: $font-size-lg;
+        }
+    }
+}

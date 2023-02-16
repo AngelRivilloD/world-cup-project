@@ -47,3 +47,13 @@
         min-height: 83px;
     }
 }
+
+@media screen and (max-width: 700px) {
+    .position-title {
+        font-size: $font-size-sm;
+    }
+
+    .position-minimun {
+        font-size: $font-size-sm;
+    }
+}

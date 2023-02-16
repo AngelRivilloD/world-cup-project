@@ -87,6 +87,7 @@
     .team-members {
         .players {
             height: calc(80vh - 368px);
+            min-height: 200px;
             overflow-y: auto;
         }
 

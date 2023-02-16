@@ -86,16 +86,16 @@
 @media screen and (max-width: 700px) {
     .team-members {
         .players {
-            height: calc(72vh - 368px);
+            height: calc(80vh - 368px);
             overflow-y: auto;
         }
 
         .one-warning-height {
-            height: calc(72vh - 395px);
+            height: calc(80vh - 395px);
         }
 
         .two-warning-height {
-            height: calc(72vh - 422px);
+            height: calc(80vh - 422px);
         }
     }
 }

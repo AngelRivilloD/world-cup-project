@@ -14,7 +14,7 @@ export class TeamMembersComponent implements OnInit, OnDestroy {
 
   public team: Team;
   public players: Player[];
-  public squad: Player[] = [];
+  public squad: Player[];
   public coach: Coach;
   public coachSelected: Coach;
 
@@ -25,6 +25,9 @@ export class TeamMembersComponent implements OnInit, OnDestroy {
   constructor(public storageService: StorageService, private _dataService: DataService) { }
 
   ngOnInit() {
+    this.squad = this.storageService.squad;
+    this.team = this.storageService.team;
+    this.coachSelected = this.storageService.coach;
     this._teamSubscription = this.storageService.teamChange$.subscribe((team) => {
       this.team = team;
       this.getData(team.id);

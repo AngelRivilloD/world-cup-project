@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { fieldPositions } from 'src/app/core/fielPositions';
-import { StorageService } from 'src/app/core/services/storage.service';
 import { Player } from 'src/app/core/types/team';
 
 @Component({
@@ -10,14 +9,12 @@ import { Player } from 'src/app/core/types/team';
 })
 export class MySquadComponent {
 
-  @Input() squad: Player[];
+  @Input() squad: Player[] = [];
 
   public fieldPositions = fieldPositions;
 
-  constructor(public storageService: StorageService) { }
+  constructor() { }
 
   getPlayersByPosition = (players: Player[], pos: string) => players.filter(player => player.position == pos);
-
-  getSquadLength = () => this.storageService.squad.length;
 
 }

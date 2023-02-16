@@ -10,6 +10,8 @@ export class CoachComponent {
 
   @Input() coach: Coach;
 
-  constructor() { }
+  constructor() {
+    console.log(this.coach);
+  }
 
 }

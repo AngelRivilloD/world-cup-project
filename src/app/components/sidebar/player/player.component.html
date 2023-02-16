@@ -1,3 +1,5 @@
-<img loading="lazy" class="player-photo" [src]="player.photo" [alt]="player.name">
-<span class="player-name">{{player.name}}</span>
-<span class="player-position">{{dataService.getShortPosition(player.position)}}</span>
+<div class="player" *ngIf="player">
+    <img loading="lazy" class="player-photo" [src]="player.photo" [alt]="player.name">
+    <span class="player-name">{{player.name}}</span>
+    <span class="player-position">{{dataService.getShortPosition(player.position)}}</span>
+</div>

@@ -10,7 +10,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 })
 export class PositionRowComponent {
 
-  @Input() players: Player[];
+  @Input() players: Player[] = [];
   @Input() title: string;
   @Input() minimum: number;
   @Input() squad: Player[];

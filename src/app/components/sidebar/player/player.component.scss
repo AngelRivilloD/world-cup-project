@@ -1,6 +1,9 @@
 @import '/src/app/styles/variables';
 
 .player {
+    display: flex;
+    align-items: center;
+
     &-photo {
         height: 35px;
         width: 35px;
@@ -13,7 +16,7 @@
         font-size: $font-size-sm;
         margin-left: 10px;
         margin-right: 10px;
-        width: 150px;
+        width: 170px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

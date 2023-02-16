@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PersonPlaceholderComponent } from '../../shared/person-placeholder/person-placeholder.component';
 
 import { CoachComponent } from './coach.component';
 
@@ -8,9 +9,9 @@ describe('CoachComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CoachComponent ]
+      declarations: [CoachComponent, PersonPlaceholderComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CoachComponent);
     component = fixture.componentInstance;

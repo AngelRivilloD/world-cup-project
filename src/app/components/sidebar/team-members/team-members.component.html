@@ -1,4 +1,4 @@
-<div class="team-members">
+<div class="team-members" *ngIf="team">
     <div class="list-title" *ngIf="coach">Coach</div>
     <div class="coach" *ngIf="coach" (click)="selectCoach(coach)"
         [ngClass]="{'coach-selected': isCoachSelected(coach, coachSelected)}">

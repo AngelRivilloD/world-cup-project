@@ -22,21 +22,42 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(public storageService: StorageService, private _dataService: DataService) { }
 
   ngOnInit() {
+
     this._squadSubscription = this.storageService.squadChange$.subscribe(squad => {
       this.squad = squad;
     });
     this._coachSubscription = this.storageService.coachChange$.subscribe(coach => {
       this.coach = coach;
     });
+
+    // this.squad = this.checkLocalSquad();
+    // console.log(this.squad);
+    this.storageService.squad = this.checkLocalSquad();
+    this.storageService.coach = this.checkLocalCoach();
   }
 
-  checkDisableButton(squad: Player[], coach: Coach) {
+  checkDisableButton(squad: Player[], coach: Coach | null) {
     const isGoalkeeperAmountCorrect = this._dataService.getPlayersAmountByPosition(squad, Position.GOALKEEPER) > 1;
     const isDefenderAmountCorrect = this._dataService.getPlayersAmountByPosition(squad, Position.DEFENDER) > 3;
     const isMidfielderAmountCorrect = this._dataService.getPlayersAmountByPosition(squad, Position.MIDFIELDER) > 3;
     const isAttackerAmountCorrect = this._dataService.getPlayersAmountByPosition(squad, Position.ATTACKER) > 1;
 
     return !(isGoalkeeperAmountCorrect && isDefenderAmountCorrect && isMidfielderAmountCorrect && isAttackerAmountCorrect && coach);
+  }
+
+  saveMyTeam(squad: Player[], coach: Coach) {
+    localStorage.setItem('my-squad', JSON.stringify(squad));
+    localStorage.setItem('my-coach', JSON.stringify(coach));
+  }
+
+  checkLocalSquad() {
+    const localSquad = localStorage.getItem('my-squad');
+    return (localSquad) ? JSON.parse(localSquad) : [];
+  }
+
+  checkLocalCoach() {
+    const localCoach = localStorage.getItem('my-coach');
+    return (localCoach) ? JSON.parse(localCoach) : null;
   }
 
   ngOnDestroy() {

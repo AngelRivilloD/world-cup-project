@@ -1,4 +1,4 @@
-<div class="selected-player">
+<div class="selected-player" *ngIf="player">
     <img class="selected-player-photo" [src]="player.photo" [alt]="player.name">
     <mat-icon class="delete-icon" (click)="removePlayer(player)" aria-label="Remove player" fontIcon="close"></mat-icon>
     <img class="selected-player-flag" [src]="player.team?.logo" [alt]="player.team?.logo">

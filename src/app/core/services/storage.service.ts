@@ -14,7 +14,7 @@ export class StorageService {
 
   private _team: Team;
   private _coach: Coach;
-  private _squad: Player[];
+  private _squad: Player[] = [];
 
   constructor() { }
 
